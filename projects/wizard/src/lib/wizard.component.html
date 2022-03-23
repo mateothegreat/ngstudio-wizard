@@ -1,0 +1,135 @@
+<div class="overlay"></div>
+
+<div class="wrapper"
+     [ngStyle]="wizardService.config.theme">
+
+    <div [ngStyle]="wizardService.config.theme.left"
+         class="left">
+
+        <div class="title">
+
+            {{ wizardService.config.title }}
+
+        </div>
+
+        <div class="description">
+
+            {{ wizardService.config.description }}
+
+        </div>
+
+        <!--        <div class="description">-->
+        <!---->
+        <!--            {{ wizardService.config.description }}-->
+        <!---->
+        <!--        </div>-->
+
+        <div class="items">
+
+            <div *ngFor="let page of wizardService.config.pages; let i = index"
+                 (click)="!page.menu.disabled && wizardService.switch(i + 1)"
+                 [ngStyle]="page.menu.disabled ? wizardService.config.theme.disabled : null"
+                 [style.color]="page.menu.state.theme.color"
+                 [style.font-weight]="page.menu.state.theme.fontWeight"
+                 class="item">
+
+                <div *ngIf="page.menu.iconClass && !page.menu.position || page.menu.position === 'left'"
+                     class="icon-left">
+
+                    <div [class]="page.menu.iconClass"></div>
+
+                </div>
+
+                <div class="label">
+
+                    {{ page.menu.label}}
+
+                </div>
+
+                <div *ngIf="page.menu.iconClass && page.menu.position === 'right'"
+                     class="icon-right">
+
+                    <div [class]="page.menu.iconClass"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <ng-container #footer></ng-container>
+
+    </div>
+
+    <div class="right">
+
+        <div class="content">
+
+            <div class="title">
+
+                {{ currentPage?.title }}
+
+            </div>
+            <div class="description">
+
+                {{ currentPage?.description }}
+
+            </div>
+
+            <ng-container #pageOutlet></ng-container>
+
+        </div>
+
+        <div class="bottom">
+
+            <div class="left">
+
+                <button *ngIf="wizardService.config.buttons.cancel"
+                        [disabled]="wizardService.config.buttons.cancel.disabled"
+                        [ngStyle]="wizardService.config.buttons.cancel.theme"
+                        (click)="wizardService.close()">
+
+                    {{ wizardService.config.buttons.cancel.label }}
+
+                </button>
+
+            </div>
+
+            <div class="r">
+
+                <button *ngIf="wizardService.config.buttons.previous"
+                        [disabled]="wizardService.config.buttons.previous.disabled || wizardService.currentPageNumber === 1"
+                        [ngStyle]="wizardService.config.buttons.previous.theme"
+                        (click)="wizardService.previous()">
+
+                    {{ wizardService.config.buttons.previous.label }}
+
+                </button>
+
+                <button
+                    *ngIf="wizardService.config.buttons.next && wizardService.currentPageNumber !== wizardService.config.pages.length"
+                    [disabled]="wizardService.config.buttons.next.disabled || wizardService.currentPageNumber === wizardService.config.pages.length"
+                    [ngStyle]="wizardService.config.buttons.next.theme"
+                    (click)="wizardService.next()">
+
+                    {{ wizardService.config.buttons.next.label }}
+
+                </button>
+
+                <button
+                    *ngIf="wizardService.config.buttons.last && wizardService.currentPageNumber === wizardService.config.pages.length"
+                    [disabled]="wizardService.config.buttons.last.disabled || wizardService.currentPageNumber === wizardService.config.pages.length"
+                    [ngStyle]="wizardService.config.buttons.last.theme"
+                    (click)="wizardService.next()">
+
+                    {{ wizardService.config.buttons.last.label }}
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
