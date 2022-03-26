@@ -6,5 +6,6 @@ export * from './lib/wizard-config-button';
 export * from './lib/wizard-config-buttons';
 export * from './lib/wizard-config-menu-item';
 export * from './lib/wizard-config-menu-item-state';
+export * from './lib/wizard-config-menu-item-states';
 export * from './lib/wizard-config-page';
 export * from './lib/wizard-config-theme';

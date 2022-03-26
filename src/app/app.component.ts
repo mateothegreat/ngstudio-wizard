@@ -78,7 +78,7 @@ export class AppComponent {
                     click$: this.buttonClick$,
                     theme: {
 
-                        backgroundColor: 'purple'
+                        backgroundColor: 'red'
 
                     }
 
@@ -138,7 +138,7 @@ export class AppComponent {
                     menu: {
 
                         label: 'Step Two',
-                        iconClass: 'fa-brands fa-accessible-icon'
+                        iconClass: 'fa-solid fa-cloud-word'
 
                     }
 
@@ -151,7 +151,6 @@ export class AppComponent {
                     menu: {
 
                         label: 'Step Three',
-                        position: 'right',
                         iconClass: 'fa-brands fa-accessible-icon'
 
                     }

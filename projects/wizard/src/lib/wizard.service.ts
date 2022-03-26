@@ -38,27 +38,13 @@ export class WizardService {
 
     public previous(): void {
 
-        if (this.currentPageNumber !== 1) {
-
-            this.currentPageNumber--;
-            this.currentPage$.next(this.config.pages[this.currentPageNumber - 1]);
-
-            this.config.buttons.previous.click$.next(this.config.buttons.previous);
-
-        }
+        this.switch(this.currentPageNumber - 1);
 
     }
 
     public next(): void {
 
-        if (this.currentPageNumber < this.config.pages.length) {
-
-            this.currentPageNumber++;
-            this.currentPage$.next(this.config.pages[this.currentPageNumber - 1]);
-
-            this.config.buttons.next.click$.next(this.config.buttons.next);
-
-        }
+        this.switch(this.currentPageNumber + 1);
 
     }
 
