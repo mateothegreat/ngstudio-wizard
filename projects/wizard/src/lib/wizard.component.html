@@ -28,9 +28,7 @@
 
             <div *ngFor="let page of wizardService.config.pages; let i = index"
                  (click)="!page.menu.disabled && wizardService.switch(i + 1)"
-                 [ngStyle]="page.menu.disabled ? wizardService.config.theme.disabled : null"
-                 [style.color]="page.menu.state.theme.color"
-                 [style.font-weight]="page.menu.state.theme.fontWeight"
+                 [ngStyle]="themes[page.state].theme"
                  class="item">
 
                 <div *ngIf="page.menu.iconClass && !page.menu.position || page.menu.position === 'left'"
@@ -108,7 +106,7 @@
 
                 <button
                     *ngIf="wizardService.config.buttons.next && wizardService.currentPageNumber !== wizardService.config.pages.length"
-                    [disabled]="wizardService.config.buttons.next.disabled || wizardService.currentPageNumber === wizardService.config.pages.length"
+                    [disabled]="wizardService.config.buttons.next.disabled || wizardService.config.pages[wizardService.currentPageNumber - 1].state === 'ERROR'"
                     [ngStyle]="wizardService.config.buttons.next.theme"
                     (click)="wizardService.next()">
 

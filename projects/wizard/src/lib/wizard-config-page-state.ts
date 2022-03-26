@@ -1,4 +1,4 @@
-export enum WizardConfigMenuItemStates {
+export enum WizardConfigPageState {
 
     ACTIVE = 'ACTIVE',
     INACTIVE = 'INACTIVE',

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { DynamicComponentFactoryService } from '@ngstudio/dynamic-component-factory';
+import { WizardConfigMenuItemThemes } from './wizard-config-menu-item-themes';
 import { WizardConfigPage } from './wizard-config-page';
 import { WizardService } from './wizard.service';
 
@@ -16,6 +17,7 @@ export class WizardComponent implements AfterViewInit {
     @ViewChild('footer', { read: ViewContainerRef }) private readonly footer: ViewContainerRef;
 
     public currentPage: WizardConfigPage<any>;
+    public themes = WizardConfigMenuItemThemes;
 
     public constructor(private readonly dynamicComponentFactoryService: DynamicComponentFactoryService,
                        public readonly wizardService: WizardService) {
@@ -45,7 +47,9 @@ export class WizardComponent implements AfterViewInit {
 
             }
 
-            this.dynamicComponentFactoryService.createInContainer('page', this.pageOutlet, page.componentType);
+            const component = this.dynamicComponentFactoryService.createInContainer('page', this.pageOutlet, page.componentType);
+
+            component.componentRef.instance['page'] = page;
 
         });
 

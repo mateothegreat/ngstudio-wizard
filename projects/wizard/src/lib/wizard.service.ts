@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { WizardConfig } from './wizard-config';
 import { WizardConfigMenuItemStates } from './wizard-config-menu-item-states';
 import { WizardConfigPage } from './wizard-config-page';
+import { WizardConfigPageState } from './wizard-config-page-state';
 import { WizardComponent } from './wizard.component';
 
 @Injectable({
@@ -44,25 +45,32 @@ export class WizardService {
 
     public next(): void {
 
+        this.config.pages[this.currentPageNumber - 1].menu.state = WizardConfigMenuItemStates.SUCCESS;
+
         this.switch(this.currentPageNumber + 1);
 
     }
 
     public switch(page: number): void {
 
-        if (page !== this.currentPageNumber) {
+        console.log(this.config.pages[this.currentPageNumber - 1]?.state);
+
+        for (let i = 0; i < this.config.pages.length; i++) {
+
+            if (this.config.pages[i].state === 'ERROR') {
+
+                return;
+
+            }
+
+        }
+
+        if (page !== this.currentPageNumber && this.config.pages[this.currentPageNumber]?.state !== WizardConfigPageState.ERROR) {
 
             this.currentPageNumber = page;
             this.currentPage$.next(this.config.pages[this.currentPageNumber - 1]);
 
-            for (let i = 0; i < this.config.pages.length; i++) {
-
-                this.config.pages[i].active = false;
-                this.config.pages[i].menu.state = WizardConfigMenuItemStates.INACTIVE;
-
-            }
-
-            this.config.pages[this.currentPageNumber - 1].active = true;
+            this.config.pages[this.currentPageNumber - 1].setState(WizardConfigPageState.ACTIVE);
             this.config.pages[this.currentPageNumber - 1].menu.state = WizardConfigMenuItemStates.ACTIVE;
 
         }

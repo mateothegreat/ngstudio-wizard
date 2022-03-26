@@ -18,7 +18,6 @@ export class AppComponent {
 
     public constructor(private readonly wizardService: WizardService) {
 
-
         this.buttonClick$.subscribe(button => {
 
             console.log('button clicked', button);
